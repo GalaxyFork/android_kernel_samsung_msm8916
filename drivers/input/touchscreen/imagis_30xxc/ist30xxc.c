@@ -58,7 +58,7 @@ static int probe_finished = 0;
 #define J5_100_OHM_VALUE    0xECEC0001
 
 #define MAX_ERR_CNT			(100)
-#define EVENT_TIMER_INTERVAL		(HZ * timer_period_ms / 1000)
+#define EVENT_TIMER_INTERVAL		(msecs_to_jiffies(1000) * timer_period_ms / 1000)
 u32 event_ms = 0, timer_ms = 0;
 static struct timer_list event_timer;
 static struct timespec t_current;	/* nano seconds */

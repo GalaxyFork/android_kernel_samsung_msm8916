@@ -112,7 +112,7 @@ int ist30xx_scan_retry = 0;
 static struct timer_list event_timer;
 static struct timespec t_current;                               // ns
 int timer_period_ms = 500;                                      // 0.5sec
-# define EVENT_TIMER_INTERVAL     (HZ * timer_period_ms / 1000) // 0.5sec
+# define EVENT_TIMER_INTERVAL     (msecs_to_jiffies(1000) * timer_period_ms / 1000) // 0.5sec
 
 #if IST30XX_DEBUG
 extern TSP_INFO ist30xx_tsp_info;
@@ -123,7 +123,7 @@ extern unsigned int system_rev;
 #define IST30XX_RAWDATA_DEBUG 1
 
 #if IST30XX_RAWDATA_DEBUG
-#define RAWDATA_TIMER_INTERVAL    (HZ * 3)    // 3sec
+#define RAWDATA_TIMER_INTERVAL    (msecs_to_jiffies(1000) * 3)    // 3sec
 
 static struct timer_list rawdata_timer;
 static struct delayed_work work_read_rawdata;

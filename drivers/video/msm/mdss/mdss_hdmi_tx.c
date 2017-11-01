@@ -3394,7 +3394,7 @@ static int hdmi_tx_panel_event_handler(struct mdss_panel_data *panel_data,
 			hdmi_ctrl->panel_suspend = false;
 
 			timeout = wait_for_completion_timeout(
-				&hdmi_ctrl->hpd_done, HZ/10);
+				&hdmi_ctrl->hpd_done, msecs_to_jiffies(100));
 			if (!timeout && !hdmi_ctrl->hpd_state) {
 				DEV_INFO("%s: cable removed during suspend\n",
 					__func__);
