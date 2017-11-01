@@ -899,7 +899,7 @@ int ipa_connect_wdi_pipe(struct ipa_wdi_in_params *in,
 	}
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on setup ep=%d.\n", ipa_ep_idx);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -999,7 +999,7 @@ int ipa_disconnect_wdi_pipe(u32 clnt_hdl)
 	wmb();
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on tear down ep=%d.\n", clnt_hdl);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -1070,7 +1070,7 @@ int ipa_enable_wdi_pipe(u32 clnt_hdl)
 	wmb();
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on enable ep=%d.\n", clnt_hdl);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -1160,7 +1160,7 @@ int ipa_disable_wdi_pipe(u32 clnt_hdl)
 	}
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on disable ep=%d.\n", clnt_hdl);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -1229,7 +1229,7 @@ int ipa_resume_wdi_pipe(u32 clnt_hdl)
 	wmb();
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on resume ep=%d.\n", clnt_hdl);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -1323,7 +1323,7 @@ int ipa_suspend_wdi_pipe(u32 clnt_hdl)
 	}
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on suspend ep=%d.\n", clnt_hdl);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -1385,7 +1385,7 @@ int ipa_write_qmapid_wdi_pipe(u32 clnt_hdl, u8 qmap_id)
 	wmb();
 	ipa_write_reg(ipa_ctx->mmio, IPA_IRQ_EE_UC_n_OFFS(0), 0x1);
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uc timed out on qmap ep=%d.\n", clnt_hdl);
 		result = -EFAULT;
 		ipa_ctx->uc_ctx.uc_failed = true;
@@ -2100,7 +2100,7 @@ int ipa_uc_reset_pipe(enum ipa_client_type ipa_client)
 
 	/* In case of a timeout, this indicates an issue in IPA HW */
 	if (wait_for_completion_timeout
-		(&ipa_ctx->uc_ctx.uc_completion, 10*HZ) == 0) {
+		(&ipa_ctx->uc_ctx.uc_completion, IPA_TIMEOUT(10)) == 0) {
 		IPAERR("uC timed out in pipe reset command on pipe %d\n",
 		       ep_idx);
 		mutex_unlock(&ipa_ctx->uc_ctx.uc_lock);

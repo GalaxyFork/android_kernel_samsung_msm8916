@@ -21,7 +21,7 @@
 #define IST30XX_INTERNAL_BIN        (1)
 #define IST30XX_CHECK_CALIB         (0)
 #define IST30XX_UPDATE_BY_WORKQUEUE (0)
-#define IST30XX_UPDATE_DELAY        (3 * HZ)
+#define IST30XX_UPDATE_DELAY        (3 * msecs_to_jiffies(1000))
 #define IST30XX_EEPROM_SIZE         (0xA000)
 #define EEPROM_PAGE_SIZE            (64)
 #define EEPROM_BASE_ADDR            (0)
